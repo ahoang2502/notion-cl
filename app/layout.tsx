@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { ConvexClientProvider } from "@/components/providers/ConvexProvider";
+import { ModalProvider } from "@/components/providers/ModalProvider";
 import "./globals.css";
 
 import type { Metadata } from "next";
@@ -44,6 +45,7 @@ export default function RootLayout({
 						storageKey="notion-theme"
 					>
 						<Toaster position="bottom-center" />
+						<ModalProvider />
 						{children}
 					</ThemeProvider>
 				</ConvexClientProvider>

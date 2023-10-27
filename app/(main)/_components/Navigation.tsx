@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/popover";
 import TrashBox from "./TrashBox";
 import { useSearch } from "@/hooks/useSearch";
+import { useSettings } from "@/hooks/useSettings";
 
 const Navigation = () => {
 	const pathname = usePathname();
@@ -41,7 +42,8 @@ const Navigation = () => {
 	const [isResetting, setIsResetting] = useState(false);
 	const [isCollapsed, setIsCollapsed] = useState(isMobile);
 
-	const search = useSearch()
+	const search = useSearch();
+	const settings = useSettings();
 
 	useEffect(() => {
 		if (isMobile) {
@@ -152,7 +154,7 @@ const Navigation = () => {
 				<div className="">
 					<UserItem />
 					<Item label="Search" icon={Search} isSearch onClick={search.onOpen} />
-					<Item label="Settings" icon={Settings} onClick={() => {}} />
+					<Item label="Settings" icon={Settings} onClick={settings.onOpen} />
 					<Item onClick={handleCreate} label="New page" icon={PlusCircle} />
 				</div>
 
