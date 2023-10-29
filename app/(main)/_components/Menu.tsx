@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { api } from "@/convex/_generated/api";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface MenuProps {
 	documentId: Id<"documents">;
@@ -65,6 +66,10 @@ const Menu = ({ documentId }: MenuProps) => {
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
+};
+
+Menu.Skeleton = function MenuSkeleton() {
+	return <Skeleton className="h-6 w-8" />;
 };
 
 export default Menu;
