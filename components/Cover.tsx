@@ -10,6 +10,7 @@ import { Button } from "./ui/button";
 import { useCoverImage } from "@/hooks/useCoverImage";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
+import { useEdgeStore } from "@/lib/edgestore";
 
 interface CoverProps {
 	url?: string;
@@ -21,8 +22,11 @@ const Cover = ({ url, preview }: CoverProps) => {
 
 	const coverImage = useCoverImage();
 	const removeCoverImage = useMutation(api.documents.removeCoverImage);
+	const { edgestore } = useEdgeStore();
 
-	const onRemove = () => {
+	const onRemove = async () => {
+		if (url) await edgestore.publicFiles.delete({ url });
+
 		removeCoverImage({
 			id: params.documentId as Id<"documents">,
 		});
@@ -41,7 +45,7 @@ const Cover = ({ url, preview }: CoverProps) => {
 			{url && !preview && (
 				<div className="opacity-0 group-hover:opacity-100 absolute bottom-5 right-5 flex items-center gap-x-2 ">
 					<Button
-						onClick={coverImage.onOpen}
+						onClick={() => coverImage.onReplace(url)}
 						className="text-muted-foreground text-xs"
 						variant="outline"
 						size="sm"
